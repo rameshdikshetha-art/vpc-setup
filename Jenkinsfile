@@ -2,13 +2,22 @@ pipeline {
     agent any
 
     stages {
-        stage('Verify') {
+
+        stage('Terraform Init') {
             steps {
-                sh '''
-                echo "Pipeline is working"
-                pwd
-                ls -lrt
-                '''
+                sh 'terraform init'
+            }
+        }
+
+        stage('Terraform Validate') {
+            steps {
+                sh 'terraform validate'
+            }
+        }
+
+        stage('Terraform Plan') {
+            steps {
+                sh 'terraform plan'
             }
         }
     }
